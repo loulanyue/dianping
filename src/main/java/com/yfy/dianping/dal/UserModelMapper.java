@@ -1,6 +1,7 @@
 package com.yfy.dianping.dal;
 
 import com.yfy.dianping.model.UserModel;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserModelMapper {
     /**
@@ -50,4 +51,8 @@ public interface UserModelMapper {
      * @mbg.generated Sat Feb 22 13:07:26 CST 2020
      */
     int updateByPrimaryKey(UserModel record);
+
+    UserModel selectByTelphoneAndPassword(@Param("telphone")String telphone,@Param("password")String password);
+
+    Integer countAllUser();
 }

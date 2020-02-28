@@ -12,7 +12,17 @@ public enum EmBusinessError {
     UNKNOWN_ERROR(10002, "未知异常"),
     NO_HANDLE_FOUND(10003, "找不到执行的路径操作"),
     BIND_EXCEPTION_ERROR(10004, "请求参数错误"),
+    PARAMETER_VALIDATION_ERROR(10005,"请求参数校验错误"),
 
+
+    //用户服务相关的错误类型20000开头
+    REGISTER_DUP_FIAL(20001,"用户已存在"),
+
+    LOGIN_FIAL(20002,"手机号或密码错误"),
+
+
+    //admin相关错误
+    ADMIN_SHOULD_LOGIN(30001,"管理员需要先登录")
     ;
 
     private Integer errCode;
