@@ -13,8 +13,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author youfy
@@ -25,8 +27,7 @@ import java.util.List;
 @RequestMapping("/admin/seller")
 public class SellerController {
 
-
-    @Autowired
+    @Resource
     private SellerService sellerService;
 
 
@@ -37,6 +38,7 @@ public class SellerController {
     @AdminPermission
     public ModelAndView index(PageQuery pageQuery){
 
+        //引入pagehelper解决分页
         PageHelper.startPage(pageQuery.getPage(),pageQuery.getSize());
         List<SellerModel> sellerModelList = sellerService.selectAll();
         PageInfo<SellerModel> sellerModelPageInfo = new PageInfo<>(sellerModelList);
