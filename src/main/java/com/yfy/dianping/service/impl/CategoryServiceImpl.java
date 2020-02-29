@@ -29,12 +29,11 @@ public class CategoryServiceImpl implements CategoryService {
         categoryModel.setCreatedAt(new Date());
         categoryModel.setUpdatedAt(new Date());
         try{
-
+            categoryModelMapper.insertSelective(categoryModel);
         }catch(DuplicateKeyException ex){
             throw new BusinessException(EmBusinessError.CATEGORY_NAME_DUPLICATED);
         }
-        categoryModelMapper.insertSelective(categoryModel);
-        return get(categoryModel.getId());
+         return get(categoryModel.getId());
     }
 
     @Override
@@ -45,5 +44,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryModel> selectAll() {
         return categoryModelMapper.selectAll();
+    }
+
+    @Override
+    public Integer countAllCategory() {
+        return categoryModelMapper.countAllCategory();
     }
 }

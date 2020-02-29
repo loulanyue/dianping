@@ -142,10 +142,13 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="sellerAll" resultMap="BaseResultMap">
+  <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from seller
     order by id ASC
+  </select>
+  <select id="countAllSeller" resultType="java.lang.Integer">
+    select count(1) from seller
   </select>
 </mapper>

@@ -3,6 +3,9 @@ package com.yfy.dianping.controller.admin;
 import com.yfy.dianping.common.AdminPermission;
 import com.yfy.dianping.common.BusinessException;
 import com.yfy.dianping.common.EmBusinessError;
+import com.yfy.dianping.service.CategoryService;
+import com.yfy.dianping.service.SellerService;
+import com.yfy.dianping.service.ShopService;
 import com.yfy.dianping.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.StringUtils;
 import sun.misc.BASE64Encoder;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -35,11 +39,20 @@ public class AdminController {
     @Value("${admin.encryptPassword}")
     private String encryptPassword;
 
-    @Autowired
+    @Resource
     private HttpServletRequest httpServletRequest;
 
-    @Autowired
+    @Resource
     private UserService userService;
+
+    @Resource
+    private CategoryService categoryService;
+
+    @Resource
+    private SellerService sellerService;
+
+    @Resource
+    private ShopService shopService;
 
     public static final String CURRENT_ADMIN_SESSION = "currentAdminSession";
 
@@ -49,6 +62,9 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView("/admin/admin/index");
         Integer i = userService.countAllUser();
         System.out.println(i);
+        modelAndView.addObject("shopCount", shopService.countAllShop());
+        modelAndView.addObject("categoryCount", categoryService.countAllCategory());
+        modelAndView.addObject("sellerCount", sellerService.countAllSeller());
         modelAndView.addObject("userCount", userService.countAllUser());
         modelAndView.addObject("CONTROLLER_NAME", "admin");
         modelAndView.addObject("ACCTION_NAME", "index");

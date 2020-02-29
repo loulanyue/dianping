@@ -30,6 +30,7 @@ public class GlobalExceptionHandler {
             return CommonRes.create(commonError, "fail");
         } else {
             CommonError commonError = new CommonError(EmBusinessError.UNKNOWN_ERROR);
+            ex.printStackTrace();
             return CommonRes.create(commonError, "fail");
         }
 
