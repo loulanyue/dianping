@@ -5,7 +5,6 @@ import com.yfy.dianping.common.EmBusinessError;
 import com.yfy.dianping.dal.SellerModelMapper;
 import com.yfy.dianping.model.SellerModel;
 import com.yfy.dianping.service.SellerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +26,8 @@ public class SellerServiceImpl implements SellerService {
     @Override
     @Transactional
     public SellerModel create(SellerModel sellerModel) {
-        sellerModel.setCreateAt(new Date());
-        sellerModel.setUpdateAt(new Date());
+        sellerModel.setCreatedAt(new Date());
+        sellerModel.setUpdatedAt(new Date());
         sellerModel.setRemarkScore(new BigDecimal(0));
         sellerModel.setDisabledFlag(0);
         sellerModelMapper.insertSelective(sellerModel);
