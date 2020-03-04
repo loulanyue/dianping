@@ -79,16 +79,16 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@RequestParam(name="email")String email,@RequestParam(name="password")String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        if(StringUtils.isEmpty(email)||StringUtils.isEmpty(password)){
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,"用户名密码不能为空");
+    public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "用户名密码不能为空");
         }
-        if(email.equals(this.email)&&encodeByMd5(password).equals(this.encryptPassword)){
+        if (email.equals(this.email) && encodeByMd5(password).equals(this.encryptPassword)) {
             //登录成功
-            httpServletRequest.getSession().setAttribute(CURRENT_ADMIN_SESSION,email);
+            httpServletRequest.getSession().setAttribute(CURRENT_ADMIN_SESSION, email);
             return "redirect:/admin/admin/index";
-        }else{
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,"用户名密码错误");
+        } else {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, "用户名密码错误");
         }
     }
 

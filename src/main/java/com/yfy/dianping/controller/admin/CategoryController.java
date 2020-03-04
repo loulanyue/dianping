@@ -30,38 +30,39 @@ public class CategoryController {
 
     @Resource
     private CategoryService categoryService;
+
     /**
      * 品类列表
      */
     @RequestMapping("/index")
     @AdminPermission
-    public ModelAndView index(PageQuery pageQuery){
+    public ModelAndView index(PageQuery pageQuery) {
 
         //引入pagehelper解决分页
-        PageHelper.startPage(pageQuery.getPage(),pageQuery.getSize());
+        PageHelper.startPage(pageQuery.getPage(), pageQuery.getSize());
         List<CategoryModel> categoryModelList = categoryService.selectAll();
         PageInfo<CategoryModel> categoryModelPageInfo = new PageInfo<>(categoryModelList);
         ModelAndView modelAndView = new ModelAndView("/admin/category/index.html");
-        modelAndView.addObject("data",categoryModelPageInfo);
-        modelAndView.addObject("CONTROLLER_NAME","category");
-        modelAndView.addObject("ACCTION_NAME","index");
+        modelAndView.addObject("data", categoryModelPageInfo);
+        modelAndView.addObject("CONTROLLER_NAME", "category");
+        modelAndView.addObject("ACCTION_NAME", "index");
 
         return modelAndView;
     }
 
     @RequestMapping("/createpage")
     @AdminPermission
-    public ModelAndView createPage(){
+    public ModelAndView createPage() {
         ModelAndView modelAndView = new ModelAndView("/admin/category/create.html");
-        modelAndView.addObject("CONTROLLER_NAME","category");
-        modelAndView.addObject("ACCTION_NAME","create");
+        modelAndView.addObject("CONTROLLER_NAME", "category");
+        modelAndView.addObject("ACCTION_NAME", "create");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     @AdminPermission
     public String create(@Valid CategoryCreateReq categoryCreateReq, BindingResult bindingResult) throws BusinessException {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, CommonUtil.processErrorString(bindingResult));
         }
 

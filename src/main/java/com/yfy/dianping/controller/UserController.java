@@ -59,10 +59,10 @@ public class UserController {
     }
 
     @RequestMapping("/index")
-    public ModelAndView index(){
+    public ModelAndView index() {
         String userName = "yfy";
         ModelAndView modelAndView = new ModelAndView("/index.html");
-        modelAndView.addObject("name",userName);
+        modelAndView.addObject("name", userName);
         return modelAndView;
     }
 
@@ -70,7 +70,7 @@ public class UserController {
     @RequestMapping("/register")
     @ResponseBody
     public CommonRes register(@Valid @RequestBody RegisterReq registerReq, BindingResult bindingResult) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, CommonUtil.processErrorString(bindingResult));
         }
         UserModel registerUser = new UserModel();
@@ -87,12 +87,12 @@ public class UserController {
     @RequestMapping("/login")
     @ResponseBody
     public CommonRes login(@RequestBody @Valid LoginReq loginReq, BindingResult bindingResult) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        if(bindingResult.hasErrors()){
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,CommonUtil.processErrorString(bindingResult));
+        if (bindingResult.hasErrors()) {
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, CommonUtil.processErrorString(bindingResult));
         }
-        UserModel userModel = userService.login(loginReq.getTelphone(),loginReq.getPassword());
+        UserModel userModel = userService.login(loginReq.getTelphone(), loginReq.getPassword());
 
-        httpServletRequest.getSession().setAttribute(CURRENT_USER_SESSION,userModel);
+        httpServletRequest.getSession().setAttribute(CURRENT_USER_SESSION, userModel);
 
         return CommonRes.create(userModel);
 
@@ -107,12 +107,12 @@ public class UserController {
     }
 
     /**
-     *获取当前用户信息
+     * 获取当前用户信息
      */
     @RequestMapping("/getcurrentuser")
     @ResponseBody
-    public CommonRes getCurrentUser(){
-        UserModel userModel = (UserModel)httpServletRequest.getSession().getAttribute(CURRENT_USER_SESSION);
+    public CommonRes getCurrentUser() {
+        UserModel userModel = (UserModel) httpServletRequest.getSession().getAttribute(CURRENT_USER_SESSION);
         return CommonRes.create(userModel);
     }
 }

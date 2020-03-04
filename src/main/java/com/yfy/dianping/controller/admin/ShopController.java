@@ -33,38 +33,39 @@ public class ShopController {
 
     @Resource
     private ShopService shopService;
+
     /**
      * 门店列表
      */
     @RequestMapping("/index")
     @AdminPermission
-    public ModelAndView index(PageQuery pageQuery){
+    public ModelAndView index(PageQuery pageQuery) {
 
         //引入pagehelper解决分页
-        PageHelper.startPage(pageQuery.getPage(),pageQuery.getSize());
+        PageHelper.startPage(pageQuery.getPage(), pageQuery.getSize());
         List<ShopModel> shopModelList = shopService.selectAll();
         PageInfo<ShopModel> categoryModelPageInfo = new PageInfo<>(shopModelList);
         ModelAndView modelAndView = new ModelAndView("/admin/shop/index.html");
-        modelAndView.addObject("data",categoryModelPageInfo);
-        modelAndView.addObject("CONTROLLER_NAME","shop");
-        modelAndView.addObject("ACCTION_NAME","index");
+        modelAndView.addObject("data", categoryModelPageInfo);
+        modelAndView.addObject("CONTROLLER_NAME", "shop");
+        modelAndView.addObject("ACCTION_NAME", "index");
 
         return modelAndView;
     }
 
     @RequestMapping("/createpage")
     @AdminPermission
-    public ModelAndView createPage(){
+    public ModelAndView createPage() {
         ModelAndView modelAndView = new ModelAndView("/admin/shop/create.html");
-        modelAndView.addObject("CONTROLLER_NAME","shop");
-        modelAndView.addObject("ACCTION_NAME","create");
+        modelAndView.addObject("CONTROLLER_NAME", "shop");
+        modelAndView.addObject("ACCTION_NAME", "create");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     @AdminPermission
     public String create(@Valid ShopCreateReq shopCreateReq, BindingResult bindingResult) throws BusinessException {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR, CommonUtil.processErrorString(bindingResult));
         }
 
