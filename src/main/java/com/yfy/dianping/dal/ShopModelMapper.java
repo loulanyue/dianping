@@ -1,7 +1,9 @@
 package com.yfy.dianping.dal;
 
 import com.yfy.dianping.model.ShopModel;
+import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ShopModelMapper {
@@ -53,4 +55,11 @@ public interface ShopModelMapper {
      * @mbg.generated Sun Mar 01 01:10:28 CST 2020
      */
     int updateByPrimaryKey(ShopModel record);
+
+    List<ShopModel> recommend(@Param("longitude")BigDecimal longitude,
+                              @Param("latitude")BigDecimal latitude);
+
+    List<ShopModel> search(@Param("longitude")BigDecimal longitude,
+                              @Param("latitude")BigDecimal latitude,
+                           @Param("keyword")String keyword);
 }
