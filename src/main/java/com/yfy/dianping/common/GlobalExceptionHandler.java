@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public CommonRes doError(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse,
+    public CommonRes doError(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                              Exception ex) {
         if (ex instanceof BusinessException) {
             return CommonRes.create(((BusinessException) ex).getCommonError(), "fail");
