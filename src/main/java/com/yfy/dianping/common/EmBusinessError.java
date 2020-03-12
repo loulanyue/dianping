@@ -3,7 +3,6 @@ package com.yfy.dianping.common;
 /**
  * @author youfy
  * @date 2020-02-22 13:45分
- * @blame 1
  */
 
 public enum EmBusinessError {

@@ -46,21 +46,22 @@ public class ShopController {
         List<ShopModel> shopModelList = shopService.recommend(longitude, latitude);
         return CommonRes.create(shopModelList);
     }
+
     /**
      * 搜索服务v1.0
      */
     @RequestMapping("/search")
     @ResponseBody
-    public CommonRes search(@RequestParam(name="longitude")BigDecimal longitude,
-                            @RequestParam(name="latitude")BigDecimal latitude,
-                            @RequestParam(name="keyword")String keyword) throws BusinessException {
-        if(StringUtils.isEmpty(keyword)||longitude==null||latitude==null){
+    public CommonRes search(@RequestParam(name = "longitude") BigDecimal longitude,
+                            @RequestParam(name = "latitude") BigDecimal latitude,
+                            @RequestParam(name = "keyword") String keyword) throws BusinessException {
+        if (StringUtils.isEmpty(keyword) || longitude == null || latitude == null) {
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
         }
 
-        List<ShopModel> shopModelList=shopService.search(longitude,latitude,keyword);
-        Map<String,Object> resMap = new HashMap<>(2);
-        resMap.put("shop",shopModelList);
+        List<ShopModel> shopModelList = shopService.search(longitude, latitude, keyword);
+        Map<String, Object> resMap = new HashMap<>(2);
+        resMap.put("shop", shopModelList);
         return CommonRes.create(resMap);
     }
 
